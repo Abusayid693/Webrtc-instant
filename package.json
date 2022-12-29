@@ -1,0 +1,23 @@
+{
+  "name": "wevrtc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abusayid693/Webrtc-phenox.git"
+  },
+  "author": "Rehane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abusayid693/Webrtc-phenox/issues"
+  },
+  "homepage": "https://github.com/Abusayid693/Webrtc-phenox#readme",
+  "devDependencies": {
+    "husky": "^7.0.0"
+  }
+}
