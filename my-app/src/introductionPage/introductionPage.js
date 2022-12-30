@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import "./introductionPage.css";
-import logo from "../images/logo.png";
-import ConnectingButtons from "./connectingButtons";
-import { useDispatch } from "react-redux";
-import { setIsRoomHost } from "../store/slice";
+import React, {useEffect} from 'react';
+import './introductionPage.css';
+import logo from '../images/logo.png';
+import ConnectingButtons from './connectingButtons';
+import {useDispatch} from 'react-redux';
+import {setIsRoomHost} from '../store/slice';
 
 const IntroductionPage = () => {
   const dispatch = useDispatch();

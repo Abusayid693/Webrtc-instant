@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,9 @@
   "homepage": "https://github.com/Abusayid693/Webrtc-phenox#readme",
   "devDependencies": {
     "husky": "^7.0.0"
+  },
+  "dependencies": {
+    "prettier": "^1.19.1",
+    "prettierrc": "^0.0.0-5"
   }
 }

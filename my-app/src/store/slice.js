@@ -1,26 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
-  identity: "",
+  identity: '',
   isRoomHost: false,
-  connectOnlyWithAudio: false,
+  connectOnlyWithAudio: false
 };
 
 const RtcSlice = createSlice({
-  name: "rtc",
+  name: 'rtc',
   initialState: initState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    setIsRoomHost: (state, { payload }) => {
+    setIsRoomHost: (state, {payload}) => {
       state.isRoomHost = payload;
     },
 
-    setConnectOnlyWithAudio: (state, { payload }) => {
+    setConnectOnlyWithAudio: (state, {payload}) => {
       state.connectOnlyWithAudio = payload;
-    },
-  },
+    }
+  }
 });
 
 export default RtcSlice.reducer;
 
-export const { setIsRoomHost, setConnectOnlyWithAudio } = RtcSlice.actions;
+export const {setIsRoomHost, setConnectOnlyWithAudio} = RtcSlice.actions;
