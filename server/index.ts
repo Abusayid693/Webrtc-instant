@@ -11,6 +11,35 @@ app.use(cors());
 
 const server = http.createServer(app);
 
+let connectedUsers = [];
+let rooms: any[] = [];
+
+app.get('/api/room-exists/:roomId', (req, res) => {
+  const roomId = req.params.roomId;
+  const room = rooms.find(room => room.id === roomId);
+
+  if (room) {
+    if (room.connectedUsers.listen > 3) {
+      res.status(200).json({
+        roomExists: true,
+        full: true,
+        message: ''
+      });
+    }
+
+    res.status(200).json({
+      roomExists: true,
+      full: false,
+      message: ''
+    });
+  } else {
+    res.status(404).json({
+      roomExists: false,
+      message: ''
+    });
+  }
+});
+
 const io = new socket.Server(server, {
   cors: {
     origin: '*',

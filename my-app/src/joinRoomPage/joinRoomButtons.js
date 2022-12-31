@@ -12,7 +12,7 @@ const Button = ({buttonText, cancelButton = false, onClickHandler}) => {
 
 const JoinRoomButtons = ({handleJoinRoom, isRoomHost}) => {
   const navigate = useNavigate();
-  
+
   const pushToIntroductionPage = () => {
     navigate('/');
   };

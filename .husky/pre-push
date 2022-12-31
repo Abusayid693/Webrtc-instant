@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Pushing to main repo"
+npm run format && git add . && git commit --amend --no-edit
