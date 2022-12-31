@@ -3,7 +3,8 @@ import {createSlice} from '@reduxjs/toolkit';
 const initState = {
   identity: '',
   isRoomHost: false,
-  connectOnlyWithAudio: false
+  connectOnlyWithAudio: false,
+  roomId: null
 };
 
 const RtcSlice = createSlice({
@@ -17,10 +18,18 @@ const RtcSlice = createSlice({
 
     setConnectOnlyWithAudio: (state, {payload}) => {
       state.connectOnlyWithAudio = payload;
+    },
+
+    setRoomId: (state, {payload}) => {
+      state.roomId = payload;
+    },
+
+    setIdentity: (state, {payload}) => {
+      state.identity = payload;
     }
   }
 });
 
 export default RtcSlice.reducer;
 
-export const {setIsRoomHost, setConnectOnlyWithAudio} = RtcSlice.actions;
+export const {setIsRoomHost, setConnectOnlyWithAudio, setRoomId, setIdentity} = RtcSlice.actions;
