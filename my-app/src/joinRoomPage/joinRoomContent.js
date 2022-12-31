@@ -11,7 +11,13 @@ const JoinRoomContent = () => {
   const {isRoomHost} = useSelector(state => state.rtc);
   return (
     <>
-      <JoinRoomInputs roomIdValue={roomId} setRoomIdValue={setRoomId} nameValue={name} setNameValue={setName} isRoomHost={isRoomHost} />
+      <JoinRoomInputs
+        roomIdValue={roomId}
+        setRoomIdValue={setRoomId}
+        nameValue={name}
+        setNameValue={setName}
+        isRoomHost={isRoomHost}
+      />
       <OnlyWithAudioCheckbox />
       <ErrorMessage errorMessage={'ErrorMessage'} />
     </>
