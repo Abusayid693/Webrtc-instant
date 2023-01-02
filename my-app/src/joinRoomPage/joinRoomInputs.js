@@ -1,4 +1,10 @@
-const JoinRoomInputs = ({roomIdValue, setRoomIdValue, nameValue, setNameValue, isRoomHost}) => {
+const JoinRoomInputs = ({
+  roomIdValue,
+  setRoomIdValue,
+  nameValue,
+  setNameValue,
+  isRoomHost
+}) => {
   return (
     <div className="join_room_inputs_container">
       {!isRoomHost && (

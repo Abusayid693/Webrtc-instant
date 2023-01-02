@@ -15,7 +15,10 @@ const ConnectingButtons = () => {
 
   return (
     <div className="connecting_buttons_container">
-      <ConnectingButton onClickHandler={pushToJoinRoomPage} buttonText={'Join a meeting'} />
+      <ConnectingButton
+        onClickHandler={pushToJoinRoomPage}
+        buttonText={'Join a meeting'}
+      />
       <ConnectingButton
         onClickHandler={pushToJoinRoomPageAsHost}
         createRoomButton

@@ -19,7 +19,7 @@ app.get('/api/room-exists/:roomId', (req, res) => {
   const room = rooms.find(room => room.id === roomId);
 
   if (room) {
-    if (room.connectedUsers.listen > 3) {
+    if (room.connectedUsers.length > 3) {
       res.status(200).json({
         roomExists: true,
         full: true,

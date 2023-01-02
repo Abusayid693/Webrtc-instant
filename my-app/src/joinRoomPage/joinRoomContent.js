@@ -37,7 +37,9 @@ const JoinRoomContent = () => {
 
       if (roomExists) {
         if (full) {
-          setErrorMessage('Meeting is full. Please try again later.');
+          setErrorMessage(
+            'Meeting is full. Please try again later.'
+          );
         } else {
           // join a room !
           dispatch(setRoomId(roomId));
@@ -46,7 +48,9 @@ const JoinRoomContent = () => {
         }
       }
     } catch (error) {
-      setErrorMessage('Meeting not found. Check your meeting id.');
+      setErrorMessage(
+        'Meeting not found. Check your meeting id.'
+      );
     }
   };
 
@@ -61,7 +65,10 @@ const JoinRoomContent = () => {
       />
       <OnlyWithAudioCheckbox />
       <ErrorMessage errorMessage={errorMessage} />
-      <JoinRoomButtons handleJoinRoom={handleJoinRoom} isRoomHost={isRoomHost} />
+      <JoinRoomButtons
+        handleJoinRoom={handleJoinRoom}
+        isRoomHost={isRoomHost}
+      />
     </>
   );
 };
