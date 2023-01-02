@@ -5,18 +5,32 @@ import {setConnectOnlyWithAudio} from '../store/slice';
 
 const OnlyWithAudioCheckbox = () => {
   const dispatch = useDispatch();
-  const {connectOnlyWithAudio} = useSelector(state => state.rtc);
+  const {connectOnlyWithAudio} = useSelector(
+    state => state.rtc
+  );
 
   const handleConnectionTypeChange = () => {
-    dispatch(setConnectOnlyWithAudio(!connectOnlyWithAudio));
+    dispatch(
+      setConnectOnlyWithAudio(!connectOnlyWithAudio)
+    );
   };
 
   return (
     <div className="checkbox_container">
-      <div className="checkbox_connection" onClick={handleConnectionTypeChange}>
-        {connectOnlyWithAudio && <img className="checkbox_image" src={checkBoxImg} />}
+      <div
+        className="checkbox_connection"
+        onClick={handleConnectionTypeChange}
+      >
+        {connectOnlyWithAudio && (
+          <img
+            className="checkbox_image"
+            src={checkBoxImg}
+          />
+        )}
       </div>
-      <p className="checkbox_container_paragraph">Only audio</p>
+      <p className="checkbox_container_paragraph">
+        Only audio
+      </p>
     </div>
   );
 };

@@ -4,7 +4,8 @@ const initState = {
   identity: '',
   isRoomHost: false,
   connectOnlyWithAudio: false,
-  roomId: null
+  roomId: null,
+  showOverlay: true
 };
 
 const RtcSlice = createSlice({
@@ -26,10 +27,20 @@ const RtcSlice = createSlice({
 
     setIdentity: (state, {payload}) => {
       state.identity = payload;
+    },
+
+    setShowOverlay: (state, {payload}) => {
+      state.showOverlay = payload;
     }
   }
 });
 
 export default RtcSlice.reducer;
 
-export const {setIsRoomHost, setConnectOnlyWithAudio, setRoomId, setIdentity} = RtcSlice.actions;
+export const {
+  setIsRoomHost,
+  setConnectOnlyWithAudio,
+  setShowOverlay,
+  setRoomId,
+  setIdentity
+} = RtcSlice.actions;
