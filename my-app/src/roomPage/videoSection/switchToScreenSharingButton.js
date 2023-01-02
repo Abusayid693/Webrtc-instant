@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import screenShare from '../../images/switchToScreenSharing.svg';
 
 const SwitchToScreenSharingButton = () => {
-  const [isScreenSharing, setIsScreenSharing] = useState(
-    false
-  );
+  const [isScreenSharing, setIsScreenSharing] = useState(false);
 
   const toggleScreenSharing = () => {
     setIsScreenSharing(prev => !prev);

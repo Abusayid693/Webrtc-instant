@@ -5,7 +5,8 @@ const initState = {
   isRoomHost: false,
   connectOnlyWithAudio: false,
   roomId: null,
-  showOverlay: true
+  showOverlay: true,
+  participants: []
 };
 
 const RtcSlice = createSlice({
@@ -31,6 +32,10 @@ const RtcSlice = createSlice({
 
     setShowOverlay: (state, {payload}) => {
       state.showOverlay = payload;
+    },
+
+    setParticipants: (state, {payload}) => {
+      state.participants = payload;
     }
   }
 });
@@ -42,5 +47,6 @@ export const {
   setConnectOnlyWithAudio,
   setShowOverlay,
   setRoomId,
-  setIdentity
+  setIdentity,
+  setParticipants
 } = RtcSlice.actions;

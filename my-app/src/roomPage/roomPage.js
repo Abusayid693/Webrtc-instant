@@ -10,12 +10,9 @@ import RoomLabel from './roomLabel';
 import Overlay from './overlay';
 
 const RoomPage = () => {
-  const {
-    roomId,
-    isRoomHost,
-    identity,
-    showOverlay
-  } = useSelector(state => state.rtc);
+  const {roomId, isRoomHost, identity, showOverlay} = useSelector(
+    state => state.rtc
+  );
 
   useEffect(() => {
     webRTCHandler.getLocalPreviewAndInitRoomConnection(

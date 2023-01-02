@@ -47,14 +47,44 @@ const io = new socket.Server(server, {
   }
 });
 
-io.on('connection', (socket)=>{
+io.on('connection', socket => {
   console.log(`user connected to socket with id: ${socket.id}`);
 
-  socket.on("create-new-room", (data)=>{
-    console.log(`user is creating a room: ${data}`)
-  })
+  socket.on('create-new-room', data => {
+    console.log(`user is creating a room: ${data}`);
+    createNewRoom(data, socket);
+  });
+});
 
-})
+const createNewRoom = (
+  data: {
+    identity: any;
+  },
+  socket: socket.Socket<any>
+) => {
+  const {identity} = data;
+  const roomId = uuidv4();
+
+  const user = {
+    identity,
+    id: uuidv4(),
+    socketId: socket.id,
+    roomId
+  };
+
+  connectedUsers.push(user);
+
+  const newRoom = {
+    roomId,
+    connectedUsers: [user]
+  };
+
+  socket.join(roomId);
+  rooms.push(newRoom);
+
+  socket.emit('room-id', {roomId});
+  socket.emit('room-update', {connectedUsers: newRoom.connectedUsers});
+};
 
 server.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
