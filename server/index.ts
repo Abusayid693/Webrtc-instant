@@ -47,6 +47,15 @@ const io = new socket.Server(server, {
   }
 });
 
+io.on('connection', (socket)=>{
+  console.log(`user connected to socket with id: ${socket.id}`);
+
+  socket.on("create-new-room", (data)=>{
+    console.log(`user is creating a room: ${data}`)
+  })
+
+})
+
 server.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
 });
