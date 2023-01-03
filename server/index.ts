@@ -17,6 +17,7 @@ let rooms: any[] = [];
 app.get('/api/room-exists/:roomId', (req, res) => {
   const roomId = req.params.roomId;
   const room = rooms.find(room => room.id === roomId);
+  console.log('rooms :', room);
 
   if (room) {
     if (room.connectedUsers.length > 3) {
@@ -54,6 +55,11 @@ io.on('connection', socket => {
     console.log(`user is creating a room: ${data}`);
     createNewRoom(data, socket);
   });
+
+  socket.on('join-room', data => {
+    console.log(`user is joining a room: ${data}`);
+    handleJoinRoom(data, socket);
+  });
 });
 
 const createNewRoom = (
@@ -75,7 +81,7 @@ const createNewRoom = (
   connectedUsers.push(user);
 
   const newRoom = {
-    roomId,
+    id: roomId,
     connectedUsers: [user]
   };
 
@@ -84,6 +90,32 @@ const createNewRoom = (
 
   socket.emit('room-id', {roomId});
   socket.emit('room-update', {connectedUsers: newRoom.connectedUsers});
+};
+
+const handleJoinRoom = (
+  data: {
+    identity: any;
+    roomId: any;
+  },
+  socket: socket.Socket<any>
+) => {
+  const {identity, roomId} = data;
+
+  const user = {
+    identity,
+    id: uuidv4(),
+    socketId: socket.id,
+    roomId
+  };
+
+  connectedUsers.push(user);
+  socket.join(roomId);
+
+  const room = rooms.find(room => room.id === roomId);
+  console.log('room :', room);
+  room.connectedUsers.push(user);
+
+  io.to(roomId).emit('room-update', {connectedUsers: room.connectedUsers});
 };
 
 server.listen(PORT, () => {
