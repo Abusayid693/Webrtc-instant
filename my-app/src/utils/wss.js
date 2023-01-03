@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import store from '../store';
 import {setRoomId, setParticipants} from '../store/slice';
+import * as WebRTCHandler from "./webRTCHandler"
 
 const SERVER = 'http://localhost:5002';
 
@@ -22,6 +23,11 @@ export const connectWithSocketIOServer = () => {
     const {connectedUsers} = data;
     store.dispatch(setParticipants(connectedUsers));
   });
+
+  socket.on("conn-prepare", (data)=>{
+    const {connUserSockedId} = data;
+    WebRTCHandler.prepareNewPeerConnection(connUserSockedId, false)
+  })
 };
 
 export const createNewRoom = identity => {

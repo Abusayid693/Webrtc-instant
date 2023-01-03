@@ -132,6 +132,17 @@ const handleJoinRoom = (
   console.log('room :', room);
   room?.connectedUsers.push(user);
 
+  // send rtc offer to prepare for peer connection
+  room?.connectedUsers.forEach((connectedUser)=>{
+    if(connectedUser.socketId !== socket.id){
+      const offerData = {
+        connUserSockedId: socket.id
+      }
+
+      io.to(connectedUser.socketId).emit("conn-prepare", offerData)
+    }
+  })
+ 
   io.to(roomId).emit('room-update', {connectedUsers: room?.connectedUsers});
 };
 
