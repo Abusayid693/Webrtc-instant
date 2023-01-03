@@ -39,3 +39,7 @@ export const joinRoom = (identity, roomId) => {
 
   socket.emit('join-room', data);
 };
+
+export const leaveRoom = () => {
+  socket.disconnect();
+};

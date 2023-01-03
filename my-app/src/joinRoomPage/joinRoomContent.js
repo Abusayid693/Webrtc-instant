@@ -20,7 +20,7 @@ const JoinRoomContent = () => {
   const dispatch = useDispatch();
 
   const handleJoinRoom = async () => {
-    console.log('handleJoinRoom')
+    console.log('handleJoinRoom');
     if (isRoomHost) {
       createRoom();
     } else await joinRoom();
@@ -35,20 +35,20 @@ const JoinRoomContent = () => {
     try {
       const responseMessage = await getRoomExists(roomId);
       const {roomExists, full} = responseMessage;
-      console.log('responseMessage :',responseMessage)
+      console.log('responseMessage :', responseMessage);
       if (roomExists) {
         if (full) {
           setErrorMessage('Meeting is full. Please try again later.');
         } else {
           // join a room !
-          console.log('else :',responseMessage)
+          console.log('else :', responseMessage);
           dispatch(setRoomId(roomId));
           dispatch(setIdentity(name));
           navigate('/room');
         }
       }
     } catch (error) {
-      setErrorMessage('Server error')
+      setErrorMessage('Server error');
       console.log('err :', error);
     }
   };

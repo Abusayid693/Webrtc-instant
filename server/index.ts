@@ -11,8 +11,21 @@ app.use(cors());
 
 const server = http.createServer(app);
 
-let connectedUsers = [];
-let rooms: any[] = [];
+let connectedUsers: {
+  identity: any;
+  id: string;
+  socketId: string;
+  roomId: any;
+}[] = [];
+let rooms: {
+  id: string;
+  connectedUsers: {
+    identity: any;
+    id: string;
+    socketId: string;
+    roomId: string;
+  }[];
+}[] = [];
 
 app.get('/api/room-exists/:roomId', (req, res) => {
   const roomId = req.params.roomId;
@@ -59,6 +72,10 @@ io.on('connection', socket => {
   socket.on('join-room', data => {
     console.log(`user is joining a room: ${data}`);
     handleJoinRoom(data, socket);
+  });
+
+  socket.on('disconnect', () => {
+    handleUserDisconnect(socket);
   });
 });
 
@@ -113,9 +130,31 @@ const handleJoinRoom = (
 
   const room = rooms.find(room => room.id === roomId);
   console.log('room :', room);
-  room.connectedUsers.push(user);
+  room?.connectedUsers.push(user);
 
-  io.to(roomId).emit('room-update', {connectedUsers: room.connectedUsers});
+  io.to(roomId).emit('room-update', {connectedUsers: room?.connectedUsers});
+};
+
+const handleUserDisconnect = (socket: socket.Socket<any>) => {
+  const user = connectedUsers.find(user => user.socketId === socket.id);
+
+  if (user) {
+    const room = rooms.find(room => room.id === user.roomId);
+    // @ts-ignore
+    room.connectedUsers = room?.connectedUsers.filter(
+      connectedUser => connectedUser.id != user.id
+    );
+    socket.leave(user.roomId);
+
+    if (room?.connectedUsers.length) {
+      io.to(user.roomId).emit('room-update', {
+        connectedUsers: room?.connectedUsers
+      });
+      return;
+    }
+
+    rooms = rooms.filter(r => r.id !== user.roomId);
+  }
 };
 
 server.listen(PORT, () => {
