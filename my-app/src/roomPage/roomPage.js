@@ -21,7 +21,6 @@ const RoomPage = () => {
       identity,
       roomId
     );
-
     return () => wss.leaveRoom();
   }, []);
 
