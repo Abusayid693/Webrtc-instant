@@ -11,8 +11,8 @@ import ErrorMessage from './errorMessage';
 import JoinRoomButtons from './joinRoomButtons';
 
 const JoinRoomContent = () => {
-  const [roomId, setRoomId] = useState('');
-  const [name, setName] = useState('');
+  const [roomId, setRoomIdValue] = useState('');
+  const [name, setNameValue] = useState('');
   const {isRoomHost} = useSelector(state => state.rtc);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -20,6 +20,7 @@ const JoinRoomContent = () => {
   const dispatch = useDispatch();
 
   const handleJoinRoom = async () => {
+    console.log('handleJoinRoom');
     if (isRoomHost) {
       createRoom();
     } else await joinRoom();
@@ -34,7 +35,7 @@ const JoinRoomContent = () => {
     try {
       const responseMessage = await getRoomExists(roomId);
       const {roomExists, full} = responseMessage;
-
+      console.log('responseMessage :', responseMessage);
       if (roomExists) {
         if (full) {
           setErrorMessage(
@@ -42,15 +43,15 @@ const JoinRoomContent = () => {
           );
         } else {
           // join a room !
+          console.log('else :', responseMessage);
           dispatch(setRoomId(roomId));
           dispatch(setIdentity(name));
           navigate('/room');
         }
       }
     } catch (error) {
-      setErrorMessage(
-        'Meeting not found. Check your meeting id.'
-      );
+      setErrorMessage('Server error');
+      console.log('err :', error);
     }
   };
 
@@ -58,9 +59,9 @@ const JoinRoomContent = () => {
     <>
       <JoinRoomInputs
         roomIdValue={roomId}
-        setRoomIdValue={setRoomId}
+        setRoomIdValue={setRoomIdValue}
         nameValue={name}
-        setNameValue={setName}
+        setNameValue={setNameValue}
         isRoomHost={isRoomHost}
       />
       <OnlyWithAudioCheckbox />

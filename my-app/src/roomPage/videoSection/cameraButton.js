@@ -3,10 +3,7 @@ import cameraOn from '../../images/camera.svg';
 import cameraOff from '../../images/cameraOff.svg';
 
 const CameraButton = () => {
-  const [
-    isLocalVideoDisabled,
-    setIsLocalVideoDisabled
-  ] = useState(false);
+  const [isLocalVideoDisabled, setIsLocalVideoDisabled] = useState(false);
 
   const handleCameraButton = () => {
     setIsLocalVideoDisabled(prev => !prev);

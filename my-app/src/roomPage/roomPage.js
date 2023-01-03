@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import './roomPage.css';
 import * as webRTCHandler from '../utils/webRTCHandler';
+import * as wss from '../utils/wss';
 // --
 import VideoSection from './videoSection/videoSection';
 import ChatSection from './chatSection/chatSection';
@@ -10,12 +11,9 @@ import RoomLabel from './roomLabel';
 import Overlay from './overlay';
 
 const RoomPage = () => {
-  const {
-    roomId,
-    isRoomHost,
-    identity,
-    showOverlay
-  } = useSelector(state => state.rtc);
+  const {roomId, isRoomHost, identity, showOverlay} = useSelector(
+    state => state.rtc
+  );
 
   useEffect(() => {
     webRTCHandler.getLocalPreviewAndInitRoomConnection(
@@ -23,6 +21,7 @@ const RoomPage = () => {
       identity,
       roomId
     );
+    return () => wss.leaveRoom();
   }, []);
 
   return (
