@@ -74,6 +74,15 @@ io.on('connection', socket => {
     handleJoinRoom(data, socket);
   });
 
+  socket.on('conn-signal', data => {
+    // exchange sdp, ice candidates on peer connection
+    signalingHandler(data, socket);
+  });
+
+  socket.on('conn-init', data => {
+    initializePeerConnection(data, socket);
+  });
+
   socket.on('disconnect', () => {
     handleUserDisconnect(socket);
   });
@@ -133,16 +142,16 @@ const handleJoinRoom = (
   room?.connectedUsers.push(user);
 
   // send rtc offer to prepare for peer connection
-  room?.connectedUsers.forEach((connectedUser)=>{
-    if(connectedUser.socketId !== socket.id){
+  room?.connectedUsers.forEach(connectedUser => {
+    if (connectedUser.socketId !== socket.id) {
       const offerData = {
         connUserSockedId: socket.id
-      }
+      };
 
-      io.to(connectedUser.socketId).emit("conn-prepare", offerData)
+      io.to(connectedUser.socketId).emit('conn-prepare', offerData);
     }
-  })
- 
+  });
+
   io.to(roomId).emit('room-update', {connectedUsers: room?.connectedUsers});
 };
 
@@ -166,6 +175,28 @@ const handleUserDisconnect = (socket: socket.Socket<any>) => {
 
     rooms = rooms.filter(r => r.id !== user.roomId);
   }
+};
+
+const signalingHandler = (
+  data: {
+    signal: any;
+    connUserSockedId: any;
+  },
+  socket: socket.Socket<any>
+) => {
+  const {connUserSockedId, signal} = data;
+
+  const signalingData = {signal, connUserSockedId: socket.id};
+
+  io.to(connUserSockedId).emit('conn-signal', signalingData);
+};
+
+const initializePeerConnection = (
+  data: {connUserSockedId: any},
+  socket: socket.Socket<any>
+) => {
+  const {connUserSockedId} = data;
+  io.to(connUserSockedId).emit('conn-init', {connUserSockedId: socket.id});
 };
 
 server.listen(PORT, () => {
