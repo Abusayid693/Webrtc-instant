@@ -30,20 +30,19 @@ export const connectWithSocketIOServer = () => {
     WebRTCHandler.prepareNewPeerConnection(connUserSockedId, false);
 
     // tell the user who is trying to join that we have prepared peer connection
-    socket.emit("conn-init", {connUserSockedId})
+    socket.emit('conn-init', {connUserSockedId});
   });
 
   // for both existing and new
-  socket.on("conn-signal", (data)=>{
-    WebRTCHandler.handleSignalingData(data)
-  })
+  socket.on('conn-signal', data => {
+    WebRTCHandler.handleSignalingData(data);
+  });
 
   // for joiner side
-  socket.on("conn-init", data =>{
+  socket.on('conn-init', data => {
     const {connUserSockedId} = data;
     WebRTCHandler.prepareNewPeerConnection(connUserSockedId, true);
-  })
-
+  });
 };
 
 export const createNewRoom = identity => {
@@ -63,9 +62,9 @@ export const joinRoom = (identity, roomId) => {
 };
 
 // share sdp, ice candidates between servers
-export const signalPeerData = (data)=>{
+export const signalPeerData = data => {
   socket.emit('conn-signal', data);
-}
+};
 
 export const leaveRoom = () => {
   socket.disconnect();

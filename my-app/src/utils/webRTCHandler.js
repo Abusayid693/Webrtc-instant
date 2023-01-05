@@ -30,7 +30,6 @@ export const getLocalPreviewAndInitRoomConnection = (
     );
 };
 
-
 let peers = {};
 let streams = [];
 
@@ -74,29 +73,46 @@ export const prepareNewPeerConnection = (connUserSockedId, isInitiator) => {
 export const handleSignalingData = data => {
   // save signaling data peer from other user
   const {signal, connUserSockedId} = data;
-  peers[connUserSockedId].signal(signal)
+  peers[connUserSockedId].signal(signal);
 };
 
 //ui
 
 const showLocalVideoPreview = stream => {
-  const videosContainer = document.getElementById("videos_portal");
-  videosContainer.classList.add("videos_portal_styles");
+  const videosContainer = document.getElementById('videos_portal');
+  videosContainer.classList.add('videos_portal_styles');
   const videoContainer = document.createElement('div');
-  videoContainer.classList.add('video_track_container')
+  videoContainer.classList.add('video_track_container');
   const videoElement = document.createElement('video');
-  videoElement.autoplay = true
+  videoElement.autoplay = true;
   videoElement.muted = true;
   videoElement.srcObject = stream;
 
-  videoElement.onloadedmetadata = ()=>{
-    videoElement.play()
-  }
+  videoElement.onloadedmetadata = () => {
+    videoElement.play();
+  };
 
   videoContainer.appendChild(videoElement);
-  videosContainer.appendChild(videoContainer)
+  videosContainer.appendChild(videoContainer);
 };
 
-const addStream = () => {
+const addStream = (stream, connUserSockedId) => {
   //incoming stream
+  const videosContainer = document.getElementById('videos_portal');
+
+  const videoContainer = document.createElement('div');
+  videoContainer.id = connUserSockedId;
+  videoContainer.classList.add('video_track_container');
+
+  const videoElement = document.createElement('video');
+  videoElement.autoplay = true;
+  videoElement.srcObject = stream;
+  videoElement.id = `${connUserSockedId}-video`;
+
+  videoElement.onloadedmetadata = () => {
+    videoElement.play();
+  };
+
+  videoContainer.appendChild(videoElement);
+  videosContainer.appendChild(videoContainer);
 };

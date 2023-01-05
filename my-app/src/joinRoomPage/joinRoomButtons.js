@@ -17,7 +17,7 @@ const JoinRoomButtons = ({handleJoinRoom, isRoomHost}) => {
 
   const pushToIntroductionPage = () => {
     navigate('/');
-  }; 
+  };
 
   return (
     <div className="join_room_buttons_container">
