@@ -13,7 +13,9 @@ const JoinRoom = () => {
   const location = useLocation().search;
 
   useEffect(() => {
-    const isRoomHost = new URLSearchParams(location).get('host');
+    const isRoomHost = new URLSearchParams(location).get(
+      'host'
+    );
     if (isRoomHost) {
       dispatch(setIsRoomHost(true));
     }

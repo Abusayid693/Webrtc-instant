@@ -5,10 +5,14 @@ import {setConnectOnlyWithAudio} from '../store/slice';
 
 const OnlyWithAudioCheckbox = () => {
   const dispatch = useDispatch();
-  const {connectOnlyWithAudio} = useSelector(state => state.rtc);
+  const {connectOnlyWithAudio} = useSelector(
+    state => state.rtc
+  );
 
   const handleConnectionTypeChange = () => {
-    dispatch(setConnectOnlyWithAudio(!connectOnlyWithAudio));
+    dispatch(
+      setConnectOnlyWithAudio(!connectOnlyWithAudio)
+    );
   };
 
   return (
@@ -18,7 +22,9 @@ const OnlyWithAudioCheckbox = () => {
           <img className="checkbox_image" src={checkBoxImg} />
         )}
       </div>
-      <p className="checkbox_container_paragraph">Only audio</p>
+      <p className="checkbox_container_paragraph">
+        Only audio
+      </p>
     </div>
   );
 };

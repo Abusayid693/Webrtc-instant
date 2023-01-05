@@ -38,7 +38,9 @@ const JoinRoomContent = () => {
       console.log('responseMessage :', responseMessage);
       if (roomExists) {
         if (full) {
-          setErrorMessage('Meeting is full. Please try again later.');
+          setErrorMessage(
+            'Meeting is full. Please try again later.'
+          );
         } else {
           // join a room !
           console.log('else :', responseMessage);

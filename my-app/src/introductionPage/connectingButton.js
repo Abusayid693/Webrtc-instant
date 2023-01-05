@@ -8,7 +8,11 @@ const ConnectingButton = ({
   return (
     <button
       onClick={onClickHandler}
-      className={createRoomButton ? 'create_room_button' : 'join_room_button'}
+      className={
+        createRoomButton
+          ? 'create_room_button'
+          : 'join_room_button'
+      }
     >
       {buttonText}
     </button>
